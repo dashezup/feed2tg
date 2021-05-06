@@ -62,8 +62,11 @@ def send_feeds(data: dict):
                     f"<b><a href=\"{entry.link}\">{entry.title}</a> | "
                     f"{d.feed.title}</b>"
                 )
-                if entry.get('summary'):
-                    text += f"\n\U0001f4ac {entry.get('summary')}"
+                if entry.get('comments'):
+                    text += (
+                        "\n\U0001f4ac "
+                        f"<a href=\"{entry.get('comments')}\">Comments</a>"
+                    )
                 send_to_telegram(bot_token, chat_id, text, retry=True)
                 sleep(2)
         new_args = {x: d.get(x) for x in ('etag', 'modified')}
